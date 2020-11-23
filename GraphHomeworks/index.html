@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./two.js"></script>
+  <title>GraphHomeworks</title>
+  <style>
+    * {
+      padding: 0%;
+      margin: 0%;
+    }
+
+    html {
+      height: 100%;
+      background-color: gray;
+    }
+
+    body {
+      height: 100%;
+    }
+
+    #container {
+      display: flex;
+      height: 95%;
+    }
+
+    #canvas {
+      flex: 1;
+    }
+
+    #text {
+      flex: 1;
+      padding: 1%;
+    }
+
+    #code {
+      width: 80%;
+      height: 95%;
+      border-radius: 2%;
+      padding: 1%;
+      resize: none;
+      font-size: large;
+      background-color: rgb(39, 39, 39);
+      color: white;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="canvas"></div>
+    <div id="text">
+      <textarea name="code" id="code"></textarea>
+    </div>
+  </div>
+
+  <script>
+
+    const two = (function env () {
+      const canvas = document.getElementById('canvas')
+      const text = document.getElementById('code')
+      const tmp = new Two(null).appendTo(canvas);
+
+      canvas.addEventListener('click', () => {
+        eval(text.value)
+        alert("OK!")
+      })
+
+      let filename = location.search.slice(1)
+      if (filename !== "") {
+        const filepath = "./homeworks/" + filename
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET", filepath, true)
+        xhr.onreadystatechange = function () {
+          text.value = xhr.status === 200? xhr.responseText: "Failure"
+        }
+        xhr.send(null)
+      }
+
+      return tmp;
+    })()
+
+  </script>
+</body>
+</html>
