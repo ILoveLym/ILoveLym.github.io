@@ -1,3 +1,7 @@
+// 清理当前画板内容
+two.clear()
+
+// 创建两个内置形状并添加到一个组中
 var circle = two.makeCircle(-70, 0, 50);
 var rect = two.makeRectangle(70, 0, 100, 100);
 circle.fill = '#FF8000';
@@ -8,15 +12,12 @@ group.translation.set(two.width / 2, two.height / 2);
 group.scale = 0;
 group.noStroke();
 
-// Bind a function to scale and rotate the group
-// to the animation loop.
+// 监听画板的 update 事件，由于 bind 返回 Two 实例，所以可以链式调用
 two.bind('update', function(frameCount) {
-  // This code is called everytime two.update() is called.
-  // Effectively 60 times per second.
   if (group.scale > 0.9999) {
     group.scale = group.rotation = 0;
   }
   var t = (1 - group.scale) * 0.125;
   group.scale += t;
   group.rotation += t * 4 * Math.PI;
-}).play();  // Finally, start the animation loop
+}).play();

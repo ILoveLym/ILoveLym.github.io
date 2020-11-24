@@ -1,0 +1,44 @@
+two.clear()
+var style = {
+  family: 'proxima-nova, sans-serif',
+  size: 50,
+  leading: 50,
+  weight: 900
+}
+var buffer = []
+var gravity = new Two.Vector(0, 0.99);
+
+window.addEventListener('keydown', handler)
+window.addEventListener('touchmove', handler)
+
+two.makeText('字母喷泉', two.width/2, two.height/2, style).fill = 'white'
+two.bind('update', function() {
+  for (var i = 0; i < buffer.length; i++) {
+    var text = buffer[i];
+    
+    text.translation.addSelf(text.velocity);
+    text.velocity.addSelf(gravity);
+    
+    if (text.velocity.y > 0 && text.translation.y > two.height)  {
+      two.scene.remove(text);
+      buffer.splice(i, 1);
+    }
+  }
+}).play();
+
+function handler() {
+  for (let c of "Lym") add(c)
+}
+
+function add(msg) {
+  var x = two.width / 2;
+  var y = two.height * 1.25;
+  var text = two.makeText(msg, x, y, style);
+  text.fill = `#${Math.floor(Math.random() * (888))}`;
+
+  text.velocity = new Two.Vector();
+  text.velocity.x = (Math.random() - 0.5) * 10 /*MM*/;
+  text.velocity.y = - (20 * Math.random() + 11 /*dd*/);
+
+  buffer.push(text)
+}

@@ -1,10 +1,11 @@
+// 清空当前画板内容
 two.clear()
 
-// two has convenience methods to create shapes.
+// 生成两个内置的形状
 var circle = two.makeCircle(72, 100, 50);
 var rect = two.makeRectangle(213, 100, 100, 100);
 
-// The object returned has many stylable properties:
+// 以对象的方式操作两个形状
 circle.fill = '#FF8000';
 circle.stroke = 'orangered'; // Accepts all valid css color
 circle.linewidth = 5;
@@ -13,6 +14,5 @@ rect.fill = 'rgb(0, 200, 255)';
 rect.opacity = 0.75;
 rect.noStroke();
 
-// Don't forget to tell two to render everything
-// to the screen
+// 重绘画板
 two.update();

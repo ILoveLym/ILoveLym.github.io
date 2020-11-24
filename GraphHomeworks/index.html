@@ -14,7 +14,7 @@
 
     html {
       height: 100%;
-      background-color: gray;
+      background-color: rgb(168, 167, 167);
     }
 
     body {
@@ -22,7 +22,6 @@
     }
 
     #container {
-      justify-content: center;
       display: flex;
       height: 95%;
       flex-wrap: wrap;
@@ -33,13 +32,21 @@
     }
 
     #text {
+      background-color: rgb(233, 233, 233);
+      display: flex;
+      flex-direction: column;
+      place-content: center;
       flex: 1;
       padding: 1%;
+      border-radius: 4%;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.23), 0 6px 6px rgba(0, 0, 0, 0.23);
     }
 
     #code {
+      margin-top: 10px;
+      align-self: center;
       width: 100%;
-      height: 100%;
+      height: 96%;
       border-radius: 2%;
       padding: 1%;
       font-size: large;
@@ -47,12 +54,26 @@
       color: white;
       outline: none;
     }
+
+    #btn {
+      background-color: white;
+      margin-top: 10px;
+      border: 2px solid grey;
+      align-self: center;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      font-size: large;
+      color: grey;
+    }
   </style>
 </head>
 <body>
   <div id="container">
     <div id="text">
-      <textarea name="code" id="code"></textarea>
+      <textarea name="code" id="code"
+        placeholder="输入代码后点击代码框旁边的空白区域，出现 OK 字样则运行成功"></textarea>
+      <button id="btn">□</button>
     </div>
     <div id="canvas"></div>
   </div>
@@ -62,9 +83,10 @@
     const two = (function env () {
       const canvas = document.getElementById('canvas')
       const text = document.getElementById('code')
+      const btn = document.getElementById('btn')
       const tmp = new Two({width: 360}).appendTo(canvas);
 
-      canvas.addEventListener('click', () => {
+      btn.addEventListener('click', () => {
         let msg = "OK!"
         try {
           eval(text.value)
